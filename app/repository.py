@@ -1,5 +1,6 @@
 from .database import get_connection
 from .models import oefening, workoutset
+import pandas as pd
 
 def oefening_toevoegen(naam, spier):
     conn = get_connection()
@@ -36,3 +37,10 @@ def sets_voor_oefeningen(oefening_id):
     rows = cur.fetchall()
     conn.close()
     return [workoutset(*row) for row in rows]
+
+def sets_naar_csv(filename="lijst.csv"):
+    conn = get_connection()
+    df = pd.read_sql_query("SELECT * FROM workout_sets", conn)
+    df.to_csv(filename, index=False)
+    conn.close()
+    return filename
