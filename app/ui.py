@@ -17,9 +17,16 @@ def show_exercises_flow():
         
 def add_set_flow():
     print("\n--- Nieuwe set ---")
-    oefening_id = ask("Exercise ID")
-    gewicht = ask("Gewicht (kg)")
+    oefening_id = ask("Oefening ID")
+    gewicht = ask("Gewicht")
     herhalingen = ask("Herhalingen")
-    datum = ask("Datum (YYYY-MM-DD)")
+    datum = ask("Datum")
     set_toevoegen(oefening_id, gewicht, herhalingen, datum)
     print(" Set toegevoegd!")
+    
+def show_sets_flow():
+    print("\n--- Sets van oefening ---")
+    oefening_id = ask("Exercise ID")
+    sets = sets_voor_oefeningen(oefening_id)
+    for s in sets:
+        print(f"{s.id}: {s.gewicht}kg x {s.herhalingen} op {s.datum}")
