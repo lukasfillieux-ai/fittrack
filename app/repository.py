@@ -27,3 +27,12 @@ def set_toevoegen(oefening_id, gewicht, herhalingen, datum):
                 (oefening_id, gewicht, herhalingen, datum))
     conn.commit()
     conn.close()
+    
+def sets_voor_oefeningen(oefening_id):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM workout_sets WHERE oefening_id = ?",
+                (oefening_id,))
+    rows = cur.fetchall()
+    conn.close()
+    return [workoutset(*row) for row in rows]
